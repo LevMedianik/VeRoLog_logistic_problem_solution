@@ -70,22 +70,22 @@ DEAP (for Genetic Algorithm)
 
 To install dependencies, run:
 
-bash``` pip install numpy deap
+``` pip install numpy deap
 
 Usage
 
 Each algorithm is implemented as a standalone script.
 Run any of the algorithms using:
 
-bash``` python ACO solution.py
-bash``` python GA solution.py
-bash``` python PSO solution.py
+``` python ACO solution.py
+``` python GA solution.py
+``` python PSO solution.py
 
 Output Format
 
 Each script prints a summary of the optimized logistics schedule:
 
-bash``` SOLUTION SUMMARY:
+``` SOLUTION SUMMARY:
 TRUCK_DISTANCE = <value>
 NUMBER_OF_TRUCK_DAYS = <value>
 NUMBER_OF_TRUCKS_USED = <value>
