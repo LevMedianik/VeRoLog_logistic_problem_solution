@@ -1,171 +1,152 @@
-# VeRoLog_logistic_problem_solution 
-This repository contains implementations of three optimization algorithms: Ant Colony Optimization (ACO), Genetic Algorithm (GA), and Particle Swarm Optimization (PSO) for solving logistics scheduling problems. The goal is to optimize the allocation of trucks and technicians to service locations while minimizing costs.
+# **VeRoLog Logistic Problem Solution** 🚛🔧  
 
-## Overview
-The problem scenario is adapted from the VeRoLog Solver Challenge (http://www.verolog.eu/).  This work provides several optimization models capable of optimising the routing of deliveries and technicians, to meet customer availability so as to reduce the costs incurred the organisation. Customers purchase household appliances/machines from a vendor, after which the vendor needs to arrange delivery of the appliance within the delivery window provided by the customer, and schedule a technician to fit/install said appliance.
+This repository contains implementations of three optimization algorithms:  
+- **Ant Colony Optimization (ACO)** 🐜  
+- **Genetic Algorithm (GA)** 🧬  
+- **Particle Swarm Optimization (PSO)** 🏆  
 
-## Dataset
-The dataset training_2.txt contains structured sections defining the logistics constraints, such as truck/technician capacities, customer requests, and machine delivery/installation constraints.
+These algorithms solve a **logistics scheduling problem** by optimizing **truck and technician allocation** to service locations **while minimizing costs**.
 
-1. General Problem Parameters
-These are the fundamental constraints governing the optimization problem:
+---
 
-DAYS = N
-The number of days in the planning period (e.g., DAYS = 10).
+## **📖 Table of Contents**
+1. [Overview](#overview)
+2. [Dataset Structure](#dataset-structure)
+3. [Algorithms Implemented](#algorithms-implemented)
+4. [Problem Description](#problem-description)
+5. [Dependencies & Installation](#dependencies--installation)
+6. [Usage](#usage)
+7. [Output Format](#output-format)
 
-TRUCK_CAPACITY = X
-Maximum number of machines a truck can carry (e.g., TRUCK_CAPACITY = 15).
+---
 
-TRUCK_MAX_DISTANCE = Y
-Maximum distance a truck can travel in a day (e.g., TRUCK_MAX_DISTANCE = 2000).
+## **📌 Overview**
+The problem scenario is adapted from the **[VeRoLog Solver Challenge](http://www.verolog.eu/)**.  
+This work provides several **optimization models** capable of:
+- **Optimizing the routing of deliveries and technicians** 🚚🔧
+- **Meeting customer availability** 📅
+- **Reducing operational costs** 💰
 
-Cost parameters:
-TRUCK_DISTANCE_COST = A (Cost per unit distance traveled by a truck)
-TRUCK_DAY_COST = B (Cost per truck per day)
-TRUCK_COST = C (Fixed cost per truck over the planning period)
-TECHNICIAN_DISTANCE_COST = D (Cost per unit distance traveled by a technician)
-TECHNICIAN_DAY_COST = E (Cost per technician per day)
-TECHNICIAN_COST = F (Fixed cost per technician over the planning period)
+Customers purchase **household appliances/machines**, which need to be:
+1. **Delivered within a specific timeframe** ⏳
+2. **Installed by a technician** 🔧
 
-2. Machines Section
-This section provides information about different machine types available for delivery.
+This repository explores **three different approaches** (**ACO, GA, PSO**) to **solve this problem efficiently**.
 
-Format:
-MACHINES = K
-Machine_ID  Size  Idle_Cost
+---
 
-Example:
-MACHINES = 2
-1 6 343
-2 5 887
+## **📂 Dataset Structure**
+The dataset (`training_2.txt`) defines logistics constraints, such as **truck/technician capacities, customer requests, and machine delivery/installation constraints**.
 
-Where:
-1: Machine type ID
-6: Size of one machine (units)
-343: Cost per day if the machine remains idle
+### **1️⃣ General Problem Parameters**
+| **Parameter**               | **Description**                          | **Example** |
+|-----------------------------|------------------------------------------|------------|
+| `DAYS`                      | Number of days in planning period       | `DAYS = 10` |
+| `TRUCK_CAPACITY`            | Max machines a truck can carry          | `15`       |
+| `TRUCK_MAX_DISTANCE`        | Max distance per truck per day          | `2000`     |
+| `TRUCK_DISTANCE_COST`       | Cost per unit truck distance traveled   | `10`       |
+| `TECHNICIAN_DISTANCE_COST`  | Cost per unit technician distance       | `100`      |
 
-3. Locations Section
-This section provides coordinate locations for the depot, customers, and technicians' home locations.
+### **2️⃣ Machines Section**
+Defines machine types available for delivery.
 
-Format:
-LOCATIONS = M
-Location_ID  X_Coordinate  Y_Coordinate
-Example:
+| **Machine ID** | **Size** | **Idle Cost** |
+|---------------|---------|--------------|
+| 1             | 6       | 343          |
+| 2             | 5       | 887          |
 
-LOCATIONS = 54
-1 699 335  # Depot (always Location ID = 1)
-2 473 376  # Customer 1
-3 546 621  # Customer 2
+### **3️⃣ Locations Section**
+Provides coordinate locations for **the depot, customers, and technicians**.
 
-Where:
-1: Location ID
-699 335: (X, Y) coordinates of the location
+| **Location ID** | **X Coordinate** | **Y Coordinate** |
+|---------------|--------------|--------------|
+| 1 (Depot)    | 699          | 335          |
+| 2 (Customer) | 473          | 376          |
+| 3 (Customer) | 546          | 621          |
 
-4. Requests Section
-This section lists all customer requests, including machine type, delivery window, and quantity.
+### **4️⃣ Requests Section**
+Lists customer requests, including **machine type, delivery window, and quantity**.
 
-Format:
-REQUESTS = R
-Request_ID  Customer_Location_ID  First_Day  Last_Day  Machine_ID  Quantity
+| **Request ID** | **Customer ID** | **First Day** | **Last Day** | **Machine Type** | **Quantity** |
+|---------------|-------------|-------------|------------|---------------|----------|
+| 1            | 8           | 1           | 6          | 1             | 1        |
+| 2            | 46          | 1           | 2          | 1             | 1        |
 
-Example:
-REQUESTS = 150
-1 8 1 6 1 1
-2 46 1 2 1 1
-3 12 1 3 1 2
+### **5️⃣ Technicians Section**
+Provides **technician details**, including location, working limits, and skill sets.
 
-Where:
-1: Request ID
-8: Customer location ID
-1: First day of delivery window
-6: Last day of delivery window
-1: Machine type ID
-1: Number of machines requested
+| **Technician ID** | **Home Location ID** | **Max Distance** | **Max Requests** | **Skills** |
+|-----------------|-----------------|-------------|-------------|---------|
+| 1              | 40              | 529         | 9           | 0 1     |
+| 2              | 1               | 995         | 9           | 0 1     |
 
-5. Technicians Section
-This section provides technician details, including location, working limits, and skill sets.
+---
 
-Format:
-TECHNICIANS = T
-Technician_ID  Home_Location_ID  Max_Distance  Max_Requests  Skill_1  Skill_2 ... Skill_N
+## **🚀 Algorithms Implemented**
+This repository implements **three different metaheuristic approaches**:
 
-Example:
-TECHNICIANS = 50
-1 40 529 9 0 1
-2 1 995 9 0 1
-3 1 1280 7 0 1
+### **1️⃣ Ant Colony Optimization (ACO) 🐜**
+- **Inspiration**: Ants finding the shortest path to food.
+- **Approach**:
+  - Pheromone-based decision-making.
+  - Heuristic-based route construction.
+  - Cost evaluation & minimization.
 
-Where:
-1: Technician ID
-40: Home location ID
-529: Maximum distance they can travel per day
+📂 **File**: `ACO_solution.py`
 
-9: Maximum number of requests they can handle per day
-0 1: Skills (0 = cannot install, 1 = can install the respective machine type)
+---
 
-## Algorithms Implemented
+### **2️⃣ Genetic Algorithm (GA) 🧬**
+- **Inspiration**: Natural selection & evolution.
+- **Approach**:
+  - Tournament selection 🎯
+  - Two-point crossover 🔀
+  - Bit-flip mutation 🎲
 
-**1. Ant Colony Optimization (ACO)**
+📂 **File**: `GA_solution.py`
 
-ACO is a probabilistic technique inspired by the behavior of ants seeking the shortest path between their colony and a food source. The implementation models the logistics problem by constructing solutions based on pheromone trails and heuristic information. File: ACO solution.py
+---
 
-Parameters:
-Pheromone update mechanism
-Heuristic-based solution construction
-Cost evaluation and minimization
+### **3️⃣ Particle Swarm Optimization (PSO) 🏆**
+- **Inspiration**: Swarm intelligence & collaborative movement.
+- **Approach**:
+  - Velocity and position updates.
+  - Inertia weight & acceleration coefficients.
+  - Tracking personal & global best.
 
+📂 **File**: `PSO_solution.py`
 
-**2. Genetic Algorithm (GA)**
+---
 
-GA is an evolutionary algorithm that mimics natural selection. It employs selection, crossover, and mutation to evolve high-quality solutions over multiple generations. File: GA solution.py
+## **📌 Problem Description**
+The problem involves **scheduling logistics for multiple locations**, considering:
+- 🚚 **Truck capacity & distance limits**  
+- 👷 **Technician allocation & working constraints**  
+- 💰 **Minimization of total cost (truck & technician costs)**  
 
-Parameters:
-Tournament selection
-Two-point crossover
-Bit-flip mutation
-Fitness function evaluation
+The algorithms use a **cost function** that accounts for:
+- 📏 **Distance-based costs**
+- ⏳ **Idle machine costs**
+- 🚛 **Number of trucks & technicians used**
 
+---
 
+## **📥 Dependencies & Installation**
+Install required dependencies:
+```bash
+pip install numpy deap
 
-**3. Particle Swarm Optimization (PSO)**
+## **Usage**
 
-PSO is inspired by swarm intelligence, where particles (solutions) move within a search space to find the optimal configuration based on personal and global best positions. File: PSO solution.py
+Run the algorithms using:
+python ACO_solution.py
+python GA_solution.py
+python PSO_solution.py
 
-Parameters:
-Velocity and position update mechanism
-Inertia weight and acceleration coefficients
-Personal and global best tracking
+## **Output format**
 
-## Problem Description
-
-The problem involves scheduling logistics for multiple locations, considering: truck capacity and distance limits; technician allocation; minimization of total cost, including truck and technician costs
-
-The algorithms use a cost function that accounts for: distance costs; idle machine costs; number of trucks and technicians used
-
-Dependencies:
-
--Python 3.x
--NumPy
--DEAP (for Genetic Algorithm)
-
-To install dependencies, run:
-
-``` pip install numpy deap```
-
-Usage
-
-Each algorithm is implemented as a standalone script.
-Run any of the algorithms using:
-
-```python ACO solution.py```
-```python GA solution.py```
-```python PSO solution.py```
-
-Output Format
-
-Each script prints a summary of the optimized logistics schedule:
-
-```SOLUTION SUMMARY:
+Each script generates an optimized logistics schedule:
+SOLUTION SUMMARY:
 TRUCK_DISTANCE = <value>
 NUMBER_OF_TRUCK_DAYS = <value>
 NUMBER_OF_TRUCKS_USED = <value>
@@ -177,4 +158,4 @@ TOTAL_COST = <value>
 SCHEDULE DETAILS
 DAY = <value>
 NUMBER_OF_TRUCKS = <value>
-NUMBER_OF_TECHNICIANS = <value>```
+NUMBER_OF_TECHNICIANS = <value>
