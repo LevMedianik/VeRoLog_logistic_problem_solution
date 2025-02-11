@@ -134,7 +134,7 @@ The algorithms use a **cost function** that accounts for:
 ## **📥 Dependencies & Installation**
 Install required dependencies:
 ```bash
-pip install numpy deap
+pip install numpy deap```
 
 ## **Usage**
 
