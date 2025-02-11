@@ -70,7 +70,7 @@ DEAP (for Genetic Algorithm)
 
 To install dependencies, run:
 
-``` pip install numpy deap
+``` pip install numpy deap```
 
 Usage
 
