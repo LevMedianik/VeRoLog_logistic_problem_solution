@@ -20,7 +20,7 @@ These algorithms solve a **logistics scheduling problem** by optimizing **truck 
 
 ---
 
-## **📌 Overview**
+## **Overview**
 The problem scenario is adapted from the **[VeRoLog Solver Challenge](http://www.verolog.eu/)**.  
 This work provides several **optimization models** capable of:
 - **Optimizing the routing of deliveries and technicians** 🚚🔧
@@ -35,7 +35,7 @@ This repository explores **three different approaches** (**ACO, GA, PSO**) to **
 
 ---
 
-## **📂 Dataset Structure**
+## **Dataset Structure**
 The dataset (`training_2.txt`) defines logistics constraints, such as **truck/technician capacities, customer requests, and machine delivery/installation constraints**.
 
 ### **1️⃣ General Problem Parameters**
@@ -82,7 +82,7 @@ Provides **technician details**, including location, working limits, and skill s
 
 ---
 
-## **🚀 Algorithms Implemented**
+## **Algorithms Implemented**
 This repository implements **three different metaheuristic approaches**:
 
 ### **1️⃣ Ant Colony Optimization (ACO) 🐜**
@@ -118,7 +118,7 @@ This repository implements **three different metaheuristic approaches**:
 
 ---
 
-## **📌 Problem Description**
+## **Problem Description**
 The problem involves **scheduling logistics for multiple locations**, considering:
 - 🚚 **Truck capacity & distance limits**  
 - 👷 **Technician allocation & working constraints**  
@@ -131,7 +131,7 @@ The algorithms use a **cost function** that accounts for:
 
 ---
 
-## **📥 Dependencies & Installation**
+## **Dependencies & Installation**
 Install required dependencies:
 ```bash
 pip install numpy deap
