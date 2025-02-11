@@ -134,18 +134,24 @@ The algorithms use a **cost function** that accounts for:
 ## **📥 Dependencies & Installation**
 Install required dependencies:
 ```bash
-pip install numpy deap```
+pip install numpy deap
+
+---
 
 ## **Usage**
 
 Run the algorithms using:
+```bash
 python ACO_solution.py
 python GA_solution.py
 python PSO_solution.py
 
+---
+
 ## **Output format**
 
 Each script generates an optimized logistics schedule:
+```bash
 SOLUTION SUMMARY:
 TRUCK_DISTANCE = <value>
 NUMBER_OF_TRUCK_DAYS = <value>
